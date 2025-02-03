@@ -27,16 +27,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GIT/Команды Git.md",
+                "file": "GIT/Термины git.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Команды Git"
+              "title": "Термины git"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -194,7 +193,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c89663d247e77830",
+  "active": "1463c9e04262fdf4",
   "lastOpenFiles": [
     "GIT/Термины git.md",
     "GIT/Команды Git.md"
