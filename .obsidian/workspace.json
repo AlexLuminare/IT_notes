@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GIT/Команды Git.md",
+                "file": "Полезные ссылки.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Команды Git"
+              "title": "Полезные ссылки"
             }
           },
           {
@@ -195,7 +195,11 @@
   },
   "active": "1463c9e04262fdf4",
   "lastOpenFiles": [
-    "GIT/Термины git.md",
-    "GIT/Команды Git.md"
+    "Golang/Переменные среды.md",
+    "Golang/Опционные параметры.md",
+    "Полезные ссылки.md",
+    "Golang/Необходимые команды go.md",
+    "GIT/Команды Git.md",
+    "GIT/Термины git.md"
   ]
 }
