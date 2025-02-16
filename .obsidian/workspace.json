@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Docker/Dockerfile.md",
+                "file": "Docker/Команды.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dockerfile"
+              "title": "Команды"
             }
           },
           {
@@ -238,8 +238,11 @@
   },
   "active": "5ad809cc91dc580f",
   "lastOpenFiles": [
-    "Docker/Команды.md",
     "Docker/Dockerfile.md",
+    "Docker/dockerignore.md",
+    "Docker/Команды.md",
+    "Полезные ссылки.md",
+    "MD-ликбез.md",
     "Golang/Глаголы форматирования.md",
     "runtime -интересное.md",
     "GIT/Команды Git.md",
@@ -247,7 +250,6 @@
     "Golang/Дженерики.md",
     "Docker",
     "Библиотеки, фреймворки.md",
-    "Полезные ссылки.md",
     "Подготовка среды Golang.md",
     "Golang/Переменные среды.md",
     "Golang/Опционные параметры.md",
