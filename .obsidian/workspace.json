@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/runtime -интересное.md",
+                "file": "Golang/конкурентность/context.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "runtime -интересное"
+              "title": "context"
             }
           }
         ],
@@ -196,6 +196,7 @@
   },
   "active": "4c2733969a67eed7",
   "lastOpenFiles": [
+    "Golang/runtime -интересное.md",
     "Golang/packages/sort.md",
     "Golang/packages/reflect.md",
     "Алгоритмы/Сортировки/Insertion sort.md",
