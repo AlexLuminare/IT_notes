@@ -31,7 +31,7 @@
 | **CMD [“p1_cmd”, “p2_cmd”]**   | p1_cmd p2_cmd              | /bin/sh -c exec_entry p1_entry     | exec_entry p1_entry p1_cmd p2_cmd              |
 | **CMD exec_cmd p1_cmd**        | /bin/sh -c exec_cmd p1_cmd | /bin/sh -c exec_entry p1_entry     | exec_entry p1_entry /bin/sh -c exec_cmd p1_cmd |
 
-### Расница в использовании ADD и COPY
+### Разница в использовании ADD и COPY
 
 `COPY` - наиболее часто применяемая коменда по сравнению с `ADD`. Предназначен исключительно для копировани файлов с хостовой системы в образ.
 
