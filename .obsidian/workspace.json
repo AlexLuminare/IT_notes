@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/конкурентность/context.md",
+                "file": "Golang/конкурентность/Атомики.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "context"
+              "title": "Атомики"
             }
           }
         ],
@@ -196,6 +196,8 @@
   },
   "active": "4c2733969a67eed7",
   "lastOpenFiles": [
+    "Golang/конкурентность/Каналы.md",
+    "Golang/конкурентность/context.md",
     "Golang/runtime -интересное.md",
     "Golang/packages/sort.md",
     "Golang/packages/reflect.md",
@@ -204,13 +206,11 @@
     "Кэши/LRU.md",
     "Golang/конкурентность/Атомики.md",
     "Golang/конкурентность/sync.Cond.md",
-    "Golang/конкурентность/context.md",
     "Golang/конкурентность/Таймеры и тикеры.md",
     "Golang/конкурентность/Таймеры и кикеры.md",
     "Golang/конкурентность/sync. Mutex.md",
     "Golang/конкурентность/sync.Once.md",
     "Golang/конкурентность/sync.Waitgroup.md",
-    "Golang/конкурентность/Каналы.md",
     "Golang/конкурентность/оператор select.md",
     "Golang/Сериализация/via json.md",
     "Golang/Сериализация/via gob.md",
