@@ -92,6 +92,20 @@
             }
           },
           {
+            "id": "700171a571bc9f69",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "conflict-files-obsidian-git"
+            }
+          },
+          {
             "id": "c89663d247e77830",
             "type": "leaf",
             "state": {
@@ -106,7 +120,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -264,15 +278,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "20ade608ab3c7a50",
+  "active": "700171a571bc9f69",
   "lastOpenFiles": [
+    "Golang/конкурентность/Атомики.md",
+    "conflict-files-obsidian-git.md",
     "BASH/Команды.md",
     "Golang/конкурентность/sync. Mutex.md",
     "Golang/конкурентность/errgroup.md",
     "Golang/конкурентность/Каналы.md",
     "Golang/конкурентность/context.md",
-    "conflict-files-obsidian-git.md",
-    "Golang/конкурентность/Атомики.md",
     "Golang/Сериализация/via json.md",
     "Golang/Сериализация/via gob.md",
     "Golang/Сериализация",
