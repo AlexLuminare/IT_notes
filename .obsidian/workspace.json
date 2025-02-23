@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/Типы данных/Slice.md",
+                "file": "Golang/конкурентность/sync.Cond.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Slice"
+              "title": "sync.Cond"
             }
           },
           {
@@ -266,25 +266,26 @@
   },
   "active": "d611574cd0e84ce7",
   "lastOpenFiles": [
-    "Golang/Типы данных/Слайсы.md",
+    "Golang/конкурентность/sync. Mutex.md",
+    "Golang/конкурентность/sync.Cond.md",
+    "Golang/конкурентность/sync.Once.md",
+    "Golang/Глаголы форматирования.md",
     "Golang/Типы данных/Slice.md",
+    "Golang/Типы данных/Слайсы.md",
     "Golang/Типы данных/Map.md",
     "Golang/Типы данных/Мапы.md",
     "Golang/Типы данных/Array.md",
-    "Golang/конкурентность/sync.Cond.md",
     "Golang/конкурентность/Каналы.md",
     "Golang/конкурентность/Атомики.md",
     "Golang/конкурентность/оператор select.md",
     "conflict-files-obsidian-git.md",
     "BASH/Команды.md",
-    "Golang/конкурентность/sync. Mutex.md",
     "Golang/конкурентность/errgroup.md",
     "Golang/конкурентность/context.md",
     "Golang/Сериализация/via json.md",
     "Golang/Сериализация/via gob.md",
     "Golang/Сериализация",
     "Golang/конкурентность/sync.Mutex vs sync.Cond.md",
-    "Golang/конкурентность/sync.Once.md",
     "Golang/конкурентность/sync.Pool.md",
     "Golang/конкурентность/sync.Waitgroup.md",
     "NET/Протоколы передачи данных/HTTP.md",
@@ -292,7 +293,6 @@
     "Docker/Dockerfile.md",
     "Docker/dockerignore.md",
     "Полезные ссылки.md",
-    "MD-ликбез.md",
     "Docker"
   ]
 }
