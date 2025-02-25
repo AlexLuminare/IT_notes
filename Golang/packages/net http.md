@@ -146,3 +146,48 @@ func loggingMiddleware(next http.Handler) http.Handler {
 - `WriteProxy(w io.Writer) error`:
         - Записывает запрос в `io.Writer` в формате, подходящем для прокси-серверов.    
 	    - Пример: `err := r.WriteProxy(os.Stdout)`.
+
+#### Пример использования атрибутов запроса:
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    // Пример использования полей и методов
+    fmt.Printf("Method: %s\n", r.Method)
+    fmt.Printf("Path: %s\n", r.URL.Path)
+    fmt.Printf("Host: %s\n", r.Host)
+    fmt.Printf("RemoteAddr: %s\n", r.RemoteAddr)
+
+    // Парсинг формы
+    err := r.ParseForm()
+    if err != nil {
+        http.Error(w, "Failed to parse form", http.StatusBadRequest)
+        return
+    }
+
+    // Получение значения параметра формы
+    username := r.FormValue("username")
+    fmt.Printf("Username: %s\n", username)
+
+    // Получение куки
+    cookie, err := r.Cookie("session")
+    if err == nil {
+        fmt.Printf("Session cookie: %s\n", cookie.Value)
+    }
+
+    // Ответ клиенту
+    fmt.Fprintln(w, "Request processed successfully!")
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    fmt.Println("Server is running on http://localhost:8080")
+    http.ListenAndServe(":8080", nil)
+}
+```
+
