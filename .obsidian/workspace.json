@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "NET/curl, что это за зверь и с чем его едят..md",
+                "file": "Golang/packages/net http.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "curl, что это за зверь и с чем его едят."
+              "title": "net http"
             }
           }
         ],
@@ -224,8 +224,9 @@
   },
   "active": "a34a03343a4bbf13",
   "lastOpenFiles": [
-    "Golang/Uintptr.md",
     "NET/curl, что это за зверь и с чем его едят..md",
+    "Golang/packages/net http.md",
+    "Golang/Uintptr.md",
     "Golang/конкурентность/оператор select.md",
     "conflict-files-obsidian-git.md",
     "Golang/конкурентность/Атомики.md",
@@ -252,7 +253,6 @@
     "Golang/Сериализация/via gob",
     "Golang/Сериализация",
     "BASH/Команды.md",
-    "Docker/Команды.md",
     "Docker"
   ]
 }
