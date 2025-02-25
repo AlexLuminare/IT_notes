@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/packages/net http.md",
-                "mode": "source",
-                "source": false
+                "file": "NET/Протоколы передачи данных/HTTP/HTTP-запрос (разбор).md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "net http"
+              "title": "HTTP-запрос (разбор)"
             }
           }
         ],
@@ -224,10 +224,15 @@
   },
   "active": "a34a03343a4bbf13",
   "lastOpenFiles": [
-    "NET/curl, что это за зверь и с чем его едят..md",
-    "Golang/packages/net http.md",
-    "Golang/Uintptr.md",
+    "NET/Протоколы передачи данных/HTTP/Коды ответов на http-запросы.md",
+    "NET/Протоколы передачи данных/HTTP/Методы http-запросов.md",
+    "NET/Протоколы передачи данных/HTTP/HTTP-запрос (разбор).md",
+    "NET/Протоколы передачи данных/HTTP",
+    "Golang/packages/flag.md",
     "Golang/конкурентность/оператор select.md",
+    "Golang/packages/net http.md",
+    "NET/curl, что это за зверь и с чем его едят..md",
+    "Golang/Uintptr.md",
     "conflict-files-obsidian-git.md",
     "Golang/конкурентность/Атомики.md",
     "Golang/конкурентность/Каналы.md",
@@ -247,12 +252,8 @@
     "Golang/конкурентность/Таймеры и кикеры.md",
     "Golang/конкурентность/sync. Mutex.md",
     "Golang/конкурентность/sync.Once.md",
-    "Golang/конкурентность/sync.Waitgroup.md",
-    "Golang/Сериализация/via json.md",
-    "Golang/Сериализация/via gob.md",
     "Golang/Сериализация/via gob",
     "Golang/Сериализация",
-    "BASH/Команды.md",
     "Docker"
   ]
 }
