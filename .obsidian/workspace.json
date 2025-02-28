@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "NET/Протоколы передачи данных/HTTP/HTTP-запрос (разбор).md",
+                "file": "Golang/Необходимые команды go.md",
                 "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "HTTP-запрос (разбор)"
+              "title": "Необходимые команды go"
             }
           }
         ],
@@ -117,7 +117,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -224,9 +225,14 @@
   },
   "active": "a34a03343a4bbf13",
   "lastOpenFiles": [
+    "Golang/Опционные параметры.md",
+    "Golang/Переменные среды.md",
+    "Golang/Необходимые команды go.md",
+    "NET/Протоколы передачи данных/WebSocket/основы.md",
+    "NET/Протоколы передачи данных/HTTP/HTTP-запрос (разбор).md",
+    "NET/Протоколы передачи данных/WebSocket",
     "NET/Протоколы передачи данных/HTTP/Коды ответов на http-запросы.md",
     "NET/Протоколы передачи данных/HTTP/Методы http-запросов.md",
-    "NET/Протоколы передачи данных/HTTP/HTTP-запрос (разбор).md",
     "NET/Протоколы передачи данных/HTTP",
     "Golang/packages/flag.md",
     "Golang/конкурентность/оператор select.md",
@@ -248,10 +254,6 @@
     "Алгоритмы/Сортировки/Bubble sort.md",
     "Кэши/LRU.md",
     "Golang/конкурентность/sync.Cond.md",
-    "Golang/конкурентность/Таймеры и тикеры.md",
-    "Golang/конкурентность/Таймеры и кикеры.md",
-    "Golang/конкурентность/sync. Mutex.md",
-    "Golang/конкурентность/sync.Once.md",
     "Golang/Сериализация/via gob",
     "Golang/Сериализация",
     "Docker"
