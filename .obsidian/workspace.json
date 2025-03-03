@@ -55,16 +55,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/Необходимые команды go.md",
-                "mode": "preview",
+                "file": "Golang/конкурентность/sync.Pool/Общая информация.md",
+                "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "Необходимые команды go"
+              "title": "Общая информация"
+            }
+          },
+          {
+            "id": "8454244675eb37f4",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.8.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.7"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -117,8 +129,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -223,11 +234,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a34a03343a4bbf13",
+  "active": "8454244675eb37f4",
   "lastOpenFiles": [
+    "Golang/конкурентность/sync.Pool/Примеры использования sync.Pool.md",
+    "Golang/конкурентность/sync.Pool/Общая информация.md",
+    "Golang/конкурентность/sync.Pool",
+    "Golang/Тестирование/Получение трейса (пример).md",
+    "Golang/Типы данных/Slice.md",
+    "Golang/Типы данных/Map.md",
+    "Golang/Типы данных/Array.md",
+    "Golang/Тестирование/Общие сведения.md",
+    "Golang/Необходимые команды go.md",
     "Golang/Опционные параметры.md",
     "Golang/Переменные среды.md",
-    "Golang/Необходимые команды go.md",
     "NET/Протоколы передачи данных/WebSocket/основы.md",
     "NET/Протоколы передачи данных/HTTP/HTTP-запрос (разбор).md",
     "NET/Протоколы передачи данных/WebSocket",
@@ -247,13 +266,6 @@
     "GIT/Команды Git.md",
     "GIT",
     "Golang/конкурентность/context.md",
-    "Golang/runtime -интересное.md",
-    "Golang/packages/sort.md",
-    "Golang/packages/reflect.md",
-    "Алгоритмы/Сортировки/Insertion sort.md",
-    "Алгоритмы/Сортировки/Bubble sort.md",
-    "Кэши/LRU.md",
-    "Golang/конкурентность/sync.Cond.md",
     "Golang/Сериализация/via gob",
     "Golang/Сериализация",
     "Docker"
