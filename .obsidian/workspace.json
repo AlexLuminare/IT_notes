@@ -67,12 +67,14 @@
             "id": "8454244675eb37f4",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.8.7"
+                "file": "Golang/packages/unsafe.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.8.7"
+              "icon": "lucide-file",
+              "title": "unsafe"
             }
           }
         ],
@@ -236,6 +238,7 @@
   },
   "active": "8454244675eb37f4",
   "lastOpenFiles": [
+    "Golang/packages/unsafe.md",
     "Golang/конкурентность/sync.Pool/Примеры использования sync.Pool.md",
     "Golang/конкурентность/sync.Pool/Общая информация.md",
     "Golang/конкурентность/sync.Pool",
@@ -265,7 +268,6 @@
     "GIT/Термины git.md",
     "GIT/Команды Git.md",
     "GIT",
-    "Golang/конкурентность/context.md",
     "Golang/Сериализация/via gob",
     "Golang/Сериализация",
     "Docker"
