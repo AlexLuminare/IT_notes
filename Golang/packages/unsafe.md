@@ -66,7 +66,7 @@ fmt.Printf("%d", unsafe.Offsetof(s.Field4)) // 17 байт
 	fmt.Printf("arr_3 = %d\n", *arr_3)
 ```
 
-
+	
 
 
 ```go
