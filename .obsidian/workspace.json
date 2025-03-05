@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/Тестирование/Общие сведения.md",
+                "file": "GIT/Команды Git.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Общие сведения"
+              "title": "Команды Git"
             }
           },
           {
@@ -252,6 +252,7 @@
   },
   "active": "9605cd5412d9c41e",
   "lastOpenFiles": [
+    "Golang/Тестирование/Общие сведения.md",
     "Golang/Необходимые команды go.md",
     "Makefile/Сущности Makefile.md",
     "Makefile/Правила заполнения Makefile.md",
@@ -265,7 +266,6 @@
     "Golang/Типы данных/Slice.md",
     "Golang/Типы данных/Map.md",
     "Golang/Типы данных/Array.md",
-    "Golang/Тестирование/Общие сведения.md",
     "Golang/Опционные параметры.md",
     "Golang/Переменные среды.md",
     "NET/Протоколы передачи данных/WebSocket/основы.md",
