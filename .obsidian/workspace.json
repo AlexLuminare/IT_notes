@@ -69,12 +69,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GIT/Команды Git.md",
+                "file": "Полезные ссылки.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Команды Git"
+              "title": "Полезные ссылки"
+            }
+          },
+          {
+            "id": "0c990225046671b4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Golang/packages/regexp.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "regexp"
             }
           },
           {
@@ -92,7 +106,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -250,8 +264,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9605cd5412d9c41e",
+  "active": "0c990225046671b4",
   "lastOpenFiles": [
+    "Golang/Глаголы форматирования.md",
+    "Golang/packages/regexp.md",
+    "Golang/packages/unsafe.md",
+    "Golang/packages/sort.md",
+    "Golang/packages/reflect.md",
+    "Golang/packages/net http.md",
+    "Golang/packages/flag.md",
+    "GIT/Команды Git.md",
     "Golang/Тестирование/Общие сведения.md",
     "Golang/Необходимые команды go.md",
     "Makefile/Сущности Makefile.md",
@@ -259,7 +281,6 @@
     "Golang/конкурентность/sync.Pool/Общая информация.md",
     "Makefile",
     "Golang/конкурентность/оператор select.md",
-    "Golang/packages/unsafe.md",
     "Golang/конкурентность/sync.Pool/Примеры использования sync.Pool.md",
     "Golang/конкурентность/sync.Pool",
     "Golang/Тестирование/Получение трейса (пример).md",
@@ -274,14 +295,7 @@
     "NET/Протоколы передачи данных/HTTP/Коды ответов на http-запросы.md",
     "NET/Протоколы передачи данных/HTTP/Методы http-запросов.md",
     "NET/Протоколы передачи данных/HTTP",
-    "Golang/packages/flag.md",
-    "Golang/packages/net http.md",
     "NET/curl, что это за зверь и с чем его едят..md",
-    "Golang/Uintptr.md",
-    "conflict-files-obsidian-git.md",
-    "Golang/конкурентность/Атомики.md",
-    "Golang/конкурентность/Каналы.md",
-    "Golang/конкурентность/errgroup.md",
     "GIT",
     "Golang/Сериализация/via gob",
     "Golang/Сериализация",
