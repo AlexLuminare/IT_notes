@@ -83,12 +83,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/packages/regexp.md",
+                "file": "Docker/Команды.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "regexp"
+              "title": "Команды"
             }
           },
           {
@@ -266,8 +266,8 @@
   },
   "active": "0c990225046671b4",
   "lastOpenFiles": [
-    "Golang/Глаголы форматирования.md",
     "Golang/packages/regexp.md",
+    "Golang/Глаголы форматирования.md",
     "Golang/packages/unsafe.md",
     "Golang/packages/sort.md",
     "Golang/packages/reflect.md",

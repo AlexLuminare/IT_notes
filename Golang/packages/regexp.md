@@ -15,13 +15,15 @@ fmt.Println("Регулярка скомпилирована:", re)
 - используется, если регулярка статическая и шибки быть не может
 
 ### 2. Поиск соответствий, методы Match, MatchString, MatchReader
+Методы получают на вход содержимое в виде сторки, байтового среза, или потока Reader, возвращают ответ true-сопоставление с шаблоном найдено, или false - если нет. 
 
 - `MatchString(s string) bool` — проверяет **строку**.
 - `Match(b []byte) bool` — проверяет **массив байтов**. Быстрее чем `MatchString`
 - `MatchReader(io.RuneReader) bool` — проверяет **потоковый источник (io.Reader)**, полезно для больших файлов и сетевых данных, так как в этом случае данные файла не прогружаются в память полностью, а постепенно.
 
 
-#### MatchString - пример
+#### func (re \*[Regexp](https://pkg.go.dev/regexp@go1.24.1#Regexp)) MatchString(s [string](https://pkg.go.dev/builtin#string)) [bool](https://pkg.go.dev/builtin#bool) - пример
+
 Проверка, является ли строка **числом** (состоит только из цифр):
 ```go
 
@@ -39,7 +41,7 @@ func main() {
 	fmt.Println(re.MatchString(""))       // false (пустая строка)}
 ```
 
-#### Match - пример
+#### func (re \*[Regexp](https://pkg.go.dev/regexp@go1.24.1#Regexp)) Match(b \[\][byte](https://pkg.go.dev/builtin#byte)) [bool](https://pkg.go.dev/builtin#bool) - пример
 работает аналогично `MatchString`, но принимает `[]byte`, а не `string`
 Проверка, является ли cодержимое байтового массива **числом** (состоит только из цифр):
 ```go
@@ -160,6 +162,8 @@ re := regexp.MustCompile(`a(x*)b`)
 	fmt.Println(re.FindAllStringSubmatchIndex("-axxb-ab-", -1))//[[1 5 2 4] [6 8 7 7]]
 	fmt.Println(re.FindAllStringSubmatchIndex("-foo-", -1))//[]
 ```
+
+
 
 #### FindStringSubmatch(s string) []string - находит не только совпадения но и  подгруппы
 ```go
