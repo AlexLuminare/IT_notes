@@ -107,17 +107,21 @@ func Tee(in <-chan int) (_, _ <-chan int) {
 
 ```
 
-### Реализация: очень-красиво
+### Реализация: "с блекджеком и шлюхами"
 ```go
 
+// You can edit this code!
+// Click here and start typing.
 package main
 
 import (
+	"context"
 	"fmt"
 	"sync"
+	"time"
 )
 
-func Tee(in <-chan int, num_chans int) []chan int {
+func Tee(ctx context.Context, in <-chan int, num_chans int) []chan int {
 
 	//иниицализация слайса каналов
 	chans := make([]chan int, num_chans)
@@ -134,16 +138,29 @@ func Tee(in <-chan int, num_chans int) []chan int {
 		}
 
 		//из входного канала считываем значения
-		for val := range in {
-			wg := &sync.WaitGroup{}
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case val, ok := <-in:
+				if !ok {
+					return
+				}
 
-			//в цикле полученное значение пишем во все вызодные каналы
-			for i := range num_chans {
-				wg.Add(1)
-				go func() {
-					defer wg.Done()
-					chans[i] <- val
-				}()
+				wg := &sync.WaitGroup{}
+
+				//в цикле полученное значение пишем во все вызодные каналы
+				for i := range num_chans {
+					wg.Add(1)
+					go func() {
+						defer wg.Done()
+						select {
+						case <-ctx.Done():
+							return
+						case chans[i] <- val:
+						}
+					}()
+				}
 				wg.Wait()
 			}
 		}
@@ -166,8 +183,10 @@ func Generator() <-chan int {
 
 func main() {
 	in := Generator()
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+	defer cancel()
 
-	chans := Tee(in, 2)
+	chans := Tee(ctx, in, 2)
 	wg := &sync.WaitGroup{}
 
 	wg.Add(1)
