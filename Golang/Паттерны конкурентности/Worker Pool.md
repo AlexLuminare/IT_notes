@@ -1,7 +1,55 @@
-
-
 Паттерн **Worker Pool** используется для ограничения количества одновременно выполняющихся горутин, что позволяет более эффективно управлять ресурсами (например, CPU, память, сетевые соединения) при обработке большого количества задач.
 
+### Пример 1:
+```go 
+package main  
+  
+import (  
+    "fmt"  
+    "sync")  
+  
+func Pool(in chan int, numWorkers int, f func(int) int) chan int {  
+    out := make(chan int)  
+    wg := &sync.WaitGroup{}  
+    wg.Add(1)  
+    go func() {  
+       defer wg.Done()  
+       for range numWorkers {  
+          go worker(in, out, f)  
+       }  
+    }()  
+    wg.Wait()  
+    return out  
+}  
+  
+func worker(in, out chan int, f func(int) int) {  
+    for v := range in {  
+       out <- f(v)  
+    }  
+    close(out)  
+}  
+  
+func sqr(v int) int {  
+    return v * v  
+}  
+  
+func main() {  
+    in := make(chan int)  
+  
+    go func() {  
+       for i := range 100 {  
+          in <- i  
+       }  
+       close(in)  
+    }()  
+  
+    out := Pool(in, 10, sqr)  
+    for v := range out {  
+       fmt.Println(v)  
+    }  
+```
+
+### Пример 2:
 ```go
 package main
 
@@ -49,7 +97,6 @@ func main() {
 	}
 
 	wg.Wait() // Ожидаем завершения всех рабочих
-
 	fmt.Println("Все задачи выполнены.")
 }
 ```
