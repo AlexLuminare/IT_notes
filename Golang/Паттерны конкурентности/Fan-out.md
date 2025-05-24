@@ -35,11 +35,8 @@ func sqr(v int) int {
 }  
   
 func main() {  
-    //wg := sync.WaitGroup{}  
     in := make(chan int)  
-    //wg.Add(1)  
     go func() {  
-       //defer wg.Done()  
        for i := range 100 {  
           in <- i  
        }  
