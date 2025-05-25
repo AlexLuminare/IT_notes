@@ -1,6 +1,6 @@
-
+### Что это такое?
 Паттерн **pipeline** (конвейер) в конкурентном программировании представляет собой цепочку последовательно соединенных этапов обработки данных. Каждый этап (stage) в конвейере выполняется одной или несколькими горутинами. Данные проходят через конвейер, обрабатываясь на каждом этапе и передаваясь на следующий. Этот паттерн особенно полезен для обработки больших объемов данных, где каждый шаг обработки может быть выполнен независимо и потенциально параллельно.
-
+![[Pasted image 20250524230546.png]]
 
 **Основные характеристики паттерна pipeline:**
 
@@ -20,6 +20,8 @@
 3. **Этап 3 (filter):** Фильтрует строки, оставляя только те, которые содержат определенную подстроку.
 4. **Этап 4 (printer):** Печатает отфильтрованные строки.
 
+
+### Пример 1
 ```go
 package main
 
@@ -115,5 +117,65 @@ func main() {
 	wg.Wait()
 
 	fmt.Println("Конвейер завершил работу.")
+}
+```
+
+
+### Пример 2 (с разделение потока выполнения на несколько горутин)
+![[Pasted image 20250525115434.png]]
+```go
+package main  
+  
+import (  
+    "fmt"  
+    "sync")  
+  
+func parse(inputCh <-chan string) <-chan string {  
+    outputCh := make(chan string)  
+  
+    go func() {  
+       defer close(outputCh)  
+       for data := range inputCh {  
+          outputCh <- fmt.Sprintf("parsed - %s", data)  
+       }  
+    }()  
+  
+    return outputCh  
+}  
+  
+func send(inputCh <-chan string, num int) <-chan string {  
+    outputCh := make(chan string)  
+    wg := sync.WaitGroup{}  
+    wg.Add(num)  
+  
+    for i := 0; i < num; i++ {  
+       go func() {  
+          defer wg.Done()  
+          for data := range inputCh {  
+             outputCh <- fmt.Sprintf("sent - %s", data)  
+          }  
+       }()  
+    }  
+  
+    go func() {  
+       wg.Wait()  
+       close(outputCh)  
+    }()  
+  
+    return outputCh  
+}  
+  
+func main() {  
+    channel := make(chan string)  
+    go func() {  
+       defer close(channel)  
+       for i := 0; i < 10; i++ {  
+          channel <- "value"  
+       }  
+    }()  
+  
+    for value := range send(parse(channel), 2) {  
+       fmt.Println(value)  
+    }  
 }
 ```
