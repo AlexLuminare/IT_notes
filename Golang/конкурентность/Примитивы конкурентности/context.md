@@ -1,5 +1,5 @@
 
-Пакет: context
+### Используемый пакет: context
 ### Что это такое?
 контексты в Go предоставляет мощный механизм для управления **сигналами отмены (cancellation signals)**, **тайм-аутами (timeouts)**, **дедлайнами (deadlines)** и передачи **данных в рамках запроса (request-scoped values)** через границы API и между горутинами. Это особенно важно в распределенных системах и при работе с сетевыми запросами.
 
@@ -8,21 +8,33 @@
 - **Тайм-ауты и Дедлайны:** Автоматическая отмена операции по истечении заданного времени или к определенному моменту времени.
 - **Передача значений:** Передача специфичных для запроса данных (например, ID трассировки, информация об аутентификации) вниз по стеку вызовов.
 
-#### Методы контекстов
-- `Deadline() (deadline time.Time, ok bool)` -  Возвращает время, когда контекст будет отменен, если оно установлено. Если дедлайн не установлен, возвращает  `ok = false`.
-- `Done() <-chan struct{}` - Возвращает канал, который закрывается, когда контекст отменен.  Если контекст никогда не отменяется, возвращает `nil`.
-- `Err() error` -  Возвращает ошибку, если контекст отменен. Если контекст не отменен, возвращает `nil`. Ошибка может быть `context.Canceled` или `context.DeadlineExceeded`.
-- `Value(key interface{}) interface{}` - Возвращает значение, связанное с ключом `key` в контексте.  Если ключ не найден, возвращает `nil`.
-
+#### Функции и методы контекстов
+- **`(ctx context.Context) Deadline() (deadline time.Time, ok bool)`** -  Возвращает время, когда контекст будет отменен, если оно установлено. Если дедлайн не установлен, возвращает  `ok = false`.
+- **`(ctx context.Context) Done() <-chan struct{}`** - Возвращает канал, который закрывается, когда контекст отменен.  Если контекст никогда не отменяется, возвращает `nil`.
+- **`(ctx context.Context) Err() error`** -  Возвращает ошибку, если контекст отменен. Если контекст не отменен, возвращает `nil`. Ошибка может быть `context.Canceled` или `context.DeadlineExceeded`.
+- **`(ctx context.Context) Value(key interface{}) interface{}`** - Возвращает значение, связанное с ключом `key` в контексте.  Если ключ не найден, возвращает `nil`.
+- **`context.Cause(ctx context.Context) error `** - вернет ошибку, послужившую причиной отмены контекста:
+	- Если контекст был отменен из-за дедлайна (`WithDeadline` или `WithTimeout`), то `Cause` вернет `DeadlineExceeded`.
+	- Если контекст был отменен функцией  `CancelFunc`, то  `Cause()` вернет `context.Canceled`  
+	- Если контекст был отменен функцией `cancel() CancelCauseFunc`  (из `context.WithCancelCause`) с указанием конкретной ошибки `errCause` параметром ф-ции `cancel()` , то `Cause` вернет `errCause`.
+	- Если был отменен контекст типа `WithDeadlineCause` или `WithTimeoutCause` с указанием  ошибки `errCause` в параметре - то возврачается `errCause`
+	- Если контекст еще не отменен, `Cause` вернет `nil`.
 ####  Виды контекстов
 
 - **`context.Background()`** - Возвращает пустой контекст, который никогда не отменяется. Возвращает пустой контекст, который никогда не отменяется
 - **`context.TODO()`** - Аналогичен `context.Background()`, но используется, когда не ясно, какой контекст использовать.
--  **`context.WithCancel(parent Context)(ctx Context, cancel CancelFunc)`** - Создает новый контекст, который может быть отменен с помощью функции `cancel`. Когда вызывается `cancel`, контекст отменяется, и канал `Done()` закрывается.
-- **`context.WithTimeout(parent Context, timeout time.Duration)(Context, CancelFunc)`** - Аналогичен `WithDeadline`, но принимает длительность времени `timeout` вместо конкретного времени.  Контекст отменяется через указанное время.
-- **`context.WithDeadline(parent Context, deadline time.Time)(Context, CancelFunc)`**  - Создает контекст, который автоматически отменяется в указанное время `d`. Если время `d` уже прошло, контекст отменяется сразу.
-- **`context.WithValue(parent Context, key any, value any)(Context)`** - Создает контекст, который содержит значение `val`, связанное с ключом `key`.  Значения в контексте должны использоваться для передачи данных, которые относятся к запросу, а не для передачи необязательных параметров. 
-
+-  **`WithCancel(parent Context)(ctx Context, cancel CancelFunc)`** - Создает новый контекст, который может быть отменен с помощью функции `cancel`. Когда вызывается `cancel`, контекст отменяется, и канал `Done()` закрывается.
+- **`WithTimeout(parent Context, timeout time.Duration)(Context, CancelFunc)`** - Аналогичен `WithDeadline`, но принимает длительность времени `timeout` вместо конкретного времени.  Контекст отменяется через указанное время.
+- **`WithDeadline(parent Context, deadline time.Time)(Context, CancelFunc)`**  - Создает контекст, который автоматически отменяется в указанное время `d`. Если время `d` уже прошло, контекст отменяется сразу.
+- **`WithValue(parent Context, key any, value any)(Context)`** - Создает контекст, который содержит значение `val`, связанное с ключом `key`.  Значения в контексте должны использоваться для передачи данных, которые относятся к запросу, а не для передачи необязательных параметров. 
+- **`WithCancelCause(parent Context)(Context, CancelCauseFunc)`** -во многом похож на контекст **`context.WithCancel`** за исключением того, что возвращает функцию отмены с типом  `CancelCauseFunc` а не `CancelFunc`. CancelCauseFunc контракт `func(cause error)`что позволяет передавать  структуру ошибки с причинами отмены.
+- **`WithDeadlineCause(parent Context, d time.Time, cause error)(Context, CancelFunc)`** - аналогичен `WithDeadline` но дополнительным параметром принимает объект ошибки
+- **`WithTimeoutCause(parent Context, timeout time.Duration, cause error) (Context, CancelFunc)`** - аналогичен `WithTimeout` но дополнительным параметром принимает объект ошибки `cause`
+- **`AfterFunc(ctx Context, f func()) (stop func() bool)`** - контекст выполняет функцию `f` после своего закрытия. Описание:
+	- `ctx`: Контекст, за завершением которого мы следим.
+	- `f`: Функция без аргументов и без возвращаемых значений, которая будет выполнена после завершения `ctx`.
+	- `stop`: Возвращаемая функция. Вызов `stop()` предотвращает вызов `f`. Если `f` уже была вызвана или была запланирована к вызову, или если `ctx` еще не завершен и `f` успешно "остановлена", `stop()` возвращает `true`. Если `f` уже была вызвана (или `ctx` был завершен и `f` вот-вот будет вызвана, но еще не завершилась), `stop()` возвращает `false`.
+	`AfterFunc` удобна для выполнения действий по очистке или уведомлений без необходимости вручную запускать горутину с `select` на `ctx.Done()`. Это упрощает код и уменьшает вероятность ошибок.
 ### Примеры
 ####  Пример использования контекста WithCancel:
 	
@@ -192,6 +204,132 @@ func main() {
 	processRequest(ctxAnotherReq)
 }
 ```
+
+
+#### пример использования WithCancelCause
+```go
+package main
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"time"
+)
+
+func operationWithSpecificCause(ctx context.Context) {
+	select {
+	case <-time.After(5 * time.Second): // Имитация долгой работы
+		fmt.Println("Операция (operationWithSpecificCause) успешно завершена.")
+	case <-ctx.Done():
+		// ctx.Err() все еще вернет context.Canceled, если отмена не по дедлайну
+		fmt.Printf("Операция (operationWithSpecificCause) отменена. ctx.Err(): %v\n", ctx.Err())
+		// А вот context.Cause(ctx) даст нам специфическую причину
+		fmt.Printf("Причина отмены (context.Cause): %v\n", context.Cause(ctx))
+	}
+}
+
+func main() {
+	parentCtx := context.Background()
+
+	// Создаем контекст с возможностью указания причины отмены
+	ctx, cancelWithCause := context.WithCancelCause(parentCtx)
+	// defer cancelWithCause(nil) // Если бы мы хотели "просто" отменить без особой причины к концу функции
+
+	go operationWithSpecificCause(ctx)
+
+	time.Sleep(1 * time.Second) // Дадим операции немного поработать
+
+	// Отменяем операцию с конкретной причиной
+	customError := errors.New("произошла критическая ошибка в системе")
+	fmt.Printf("Главная горутина: отменяем операцию с причиной: %v\n", customError)
+	cancelWithCause(customError)
+
+	time.Sleep(100 * time.Millisecond) // Дать время горутине обработать отмену
+	fmt.Println("Главная горутина: завершение.")
+}
+```
+
+#### Пример использования  AfterFunc() без применения функции остановки
+``` go
+package main
+
+import (
+	"context"
+	"fmt"
+	"time"
+)
+
+func main() {
+	parentCtx := context.Background()
+	ctx, cancel := context.WithTimeout(parentCtx, 1*time.Second) // Таймаут через 1 секунду
+	defer cancel()
+
+	cleanupFunc := func() {
+		fmt.Println("AfterFunc: Контекст завершен! Выполняю очистку...")
+		// Здесь может быть логика по освобождению ресурсов, закрытию соединений и т.д.
+	}
+
+	fmt.Println("Регистрирую cleanupFunc с AfterFunc.")
+	stopCleanup := context.AfterFunc(ctx, cleanupFunc)
+	_ = stopCleanup // В этом примере мы не будем останавливать
+
+	// Ждем, пока контекст не завершится (из-за таймаута)
+	<-ctx.Done()
+	fmt.Printf("Основная горутина: контекст завершен с ошибкой: %v\n", ctx.Err())
+
+	// Дадим немного времени AfterFunc выполниться и вывести сообщение
+	// В реальном коде это может быть не нужно, если f не делает длительных I/O операций
+	time.Sleep(100 * time.Millisecond)
+	fmt.Println("Основная горутина: завершение.")
+}
+```
+
+#### Пример использования AfterFunc() с применения функции остановки
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"time"
+)
+
+func main() {
+	parentCtx := context.Background()
+	// Контекст, который сам по себе не отменится быстро
+	ctx, cancelManually := context.WithCancel(parentCtx)
+	defer cancelManually() // Отменится в конце main, если не раньше
+
+	expensiveNotification := func() {
+		fmt.Println("AfterFunc: Отправляю дорогое уведомление...")
+		// Представим, что это действительно дорогая операция
+	}
+
+	fmt.Println("Регистрирую expensiveNotification с AfterFunc.")
+	stopNotification := context.AfterFunc(ctx, expensiveNotification)
+
+	// Имитируем ситуацию, когда уведомление больше не нужно
+	time.Sleep(500 * time.Millisecond)
+	fmt.Println("Уведомление больше не требуется. Вызываю stopNotification().")
+
+	if stopNotification() {
+		fmt.Println("Функция expensiveNotification была успешно остановлена до вызова.")
+	} else {
+		fmt.Println("Не удалось остановить expensiveNotification (возможно, уже выполнилась или запланирована).")
+	}
+
+	// Отменяем контекст (хотя AfterFunc уже не должна сработать)
+	// cancelManually() // Уже есть в defer
+
+	// Убедимся, что AfterFunc не вызвалась
+	fmt.Println("Ждем немного, чтобы убедиться, что AfterFunc не сработала...")
+	time.Sleep(1 * time.Second)
+	fmt.Println("Основная горутина: завершение.")
+}
+```
+
+
 
 #### Пример: HTTP сервер
 ```go
