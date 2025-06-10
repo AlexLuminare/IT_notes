@@ -1,5 +1,25 @@
+#### Основные тезисы:
+- zero-value для срезов равны nil
+-  если обращаться к элементам слайса  через отрицательный индекс - паника: `index out of range`
+- если индекс больше значения len слайса - паника: `index out of range`
+- если индекс больше значения cap слайса - тем более паника: `index out of range`
+- нельзя читать по индексу из nil-слайса  - иначе паника: `index out of range`
+- нельзя писать по индексу в nil-слайс - паника: `index out of range`
+- можно аппендить в nil-слайс
+- длина слайса не может быть отрицательной
+- длина слайса не может быть боле емкости
+- емкость среза может увеличиваться, но она НИКОГДА не уменьшается. Вся ответственность за регулирование размера среза возлагается ян аразработчика 
+#### API слайсов
+- append(slice, opt_vars) -  добавление элементов в конец слайса (растет **len**)
+```go 
+data := []int{1,2,3,4}
+data = append(data, 5)  // [1 2 3 4 5]
+data = append(data, 6,7,8) // [1 2 3 4 5 6 7 8]
+data = append(data, []int{9, 10}...) //[1 2 3 4 5 6 7 8 9 10]
+```
 
-**Все варианты создания**
+
+#### Варианты создания срезов
 ```go
 package main
 
@@ -7,31 +27,38 @@ import "fmt"
 
 func main() {
     // Создание слайса с использованием литерала
-    sliceLiteral := []int{1, 2, 3, 4, 5}
+    sliceLiteral := []int{1, 2, 3, 4, 5} //[1 2 3 4 5]
     fmt.Println("Slice literal:", sliceLiteral)
+
+	//
+	sliceLiteral2 := []int{5:6}
+    fmt.Println("Slice literal2:", sliceLiteral2) // [0 0 0 0 0 6]
 
     // Создание слайса с использованием make
     sliceMake := make([]int, 3) // Длина 3, емкость 3
     fmt.Println("Slice make:", sliceMake)
 
     sliceMakeWithCapacity := make([]int, 3, 5) // Длина 3, емкость 5
-    fmt.Println("Slice make with capacity:", sliceMakeWithCapacity)
+    fmt.Println("Slice make with capacity:", sliceMakeWithCapacity) // [0 0 0]
 
     // Создание слайса на основе массива
     arr := [5]int{1, 2, 3, 4, 5}
     sliceFromArray := arr[1:4] // Элементы с индексами 1, 2, 3
-    fmt.Println("Slice from array:", sliceFromArray)
+    fmt.Println("Slice from array:", sliceFromArray) // [2 3 4]
 
     // Создание слайса на основе другого слайса
     sliceFromSlice := sliceLiteral[2:5] // Элементы с индексами 2, 3, 4
-    fmt.Println("Slice from slice:", sliceFromSlice)
+    fmt.Println("Slice from slice:", sliceFromSlice) // [3 4 5]
 
     // Создание пустого слайса
-    var emptySlice []int
-    fmt.Println("Empty slice:", emptySlice, len(emptySlice), cap(emptySlice))
+    var emptySlice []int 
+    fmt.Println("Empty slice:", emptySlice, 
+			    len(emptySlice), 
+			    cap(emptySlice)
+			    ) // [] 0 0
 
     // Добавление элемента в пустой слайс
     emptySlice = append(emptySlice, 10)
-    fmt.Println("After append:", emptySlice)
+    fmt.Println("After append:", emptySlice)  [10]
 }
 ```
