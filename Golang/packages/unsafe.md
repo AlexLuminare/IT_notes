@@ -1,29 +1,53 @@
-`unsafe.Pointer` - может быть получен из обычного указателя
+### Что это такое?
+Пакет `unsafe` в Go, как следует из его названия, предоставляет функциональность, которая выходит за рамки обычных правил безопасности типов в Go. Он позволяет вам выполнять низкоуровневые операции, такие как прямой доступ к памяти и преобразование типов, которые обычно запрещены в Go. Хотя `unsafe` может быть очень мощным инструментом для решения определенных задач, он также является источником потенциальных ошибок, если используется неправильно.
 
+### Зачем нужен unsafe?
+Пакет `unsafe` используется в очень специфических сценариях, где производительность является критически важной, или когда необходимо взаимодействовать с низкоуровневыми системами или сторонними библиотеками на C. Вот некоторые из практических задач, которые можно решать с помощью `unsafe`:
+
+1. **Оптимизация производительности:** В редких случаях, когда стандартные операции Go оказываются недостаточно быстрыми, `unsafe` может быть использован для прямого манипулирования памятью, что потенциально может ускорить операции, например, при сериализации/десериализации данных или работе с большими массивами.
+2. **Взаимодействие с кодом на C (FFI):** При работе с C-библиотеками через `cgo`, `unsafe` может быть необходим для преобразования типов Go в типы C и наоборот, а также для доступа к памяти, выделенной C.
+3. **Реализация специализированных структур данных:** Иногда для очень специфических структур данных, которые требуют точного контроля над макетом памяти (например, для кэшей или пулов объектов), `unsafe` может быть использован для создания более эффективных реализаций.
+4. **Рефлексия на низком уровне:** Хотя Go имеет свой собственный пакет `reflect`, `unsafe` может быть использован для более глубокого, но и более опасного, анализа и манипуляции типами и значениями во время выполнения.
+5. **Доступ к неэкспортированным полям структур:** В очень редких случаях, когда необходимо получить доступ к неэкспортированным (приватным) полям структур из сторонних пакетов (чего обычно не следует делать!), `unsafe` может предоставить такую возможность.
+
+Пакет `unsafe` предоставляет cследующие ключевые элементы:
+- `Pointer`: Это универсальный указатель, который может указывать на любой тип в Go. Он аналогичен `void*` в C. `Pointer` не является типизированным, что означает, что компилятор не будет проверять его на безопасность типов.
+- `Alignof(v T) uintptr`: Возвращает выравнивание памяти для переменной `v` (в байтах).
+- `Offsetof(f T) uintptr`: Возвращает смещение поля `f` внутри структуры (в байтах).
+- `Sizeof(v T) uintptr`: Возвращает размер в байтах, который занимает переменная `v` в памяти (в байтах).
+
+#### аксиомы unsafe.Pointer
+- Любой тип указателя `*T` может быть преобразован в `unsafe.Pointer`.
 ```go
 	x := 123
 	p := unsafe.Pointer(&x)
 ```
-
-
-`unsafe.Pointer` - можно преобразовать в обычный указатель
-
-```go
+- `unsafe.Pointer` может быть преобразован в любой тип указателя `*T`.
+ ```go
 	newPtr := (*int)(p)
 ```
+- `uintptr` может быть преобразован в `unsafe.Pointer`.
+- `unsafe.Pointer` может быть преобразован в `uintptr`.
 
+
+
+### Примеры
+
+#### Значение  из unsafe.Pointer
 `unsafe.Pointer` - можно преобразовать в любой \*ТИП
 ```go
 	x:= uint(23423432)
 	y := *(*int)(unsafe.Pointer(&x)) 
 ```
 
+#### Размер переменной
 `unsafe.Sizeof()` - получить размер переменной в байтах 
 ```go
 	v := 111.555
 	fmt.Printf("%d", unsafe.Sizeof(v))
 ```
 
+#### Значение выравнивания структуры
 `unsafe.Alignof()` - указывает по какому числу байт идет выравнивание структуры (выравнивание проводится по самому длинному полю структуры)
 ```go
 type MyStruct struct {
@@ -38,6 +62,7 @@ fmt.Printf("%d", unsafe.Alignof(s)) //8 байт (по полю Field2)
 ```
 
 
+#### Значение смещения полей структуры
 `unsafe.Offsetof()` - показывает смещение в байтах поля структуры относительно начального байта:
 ```go
 type MyStruct struct {
@@ -52,23 +77,64 @@ fmt.Printf("%d", unsafe.Offsetof(s.Field3)) // 16 байт
 fmt.Printf("%d", unsafe.Offsetof(s.Field4)) // 17 байт
 ```
 
+
+
+#### Получение значений элементов массива с помощью адресной арифметики
 Зная размер смещений мы можем получать определенные  значения, используя адресную арифметику:
 ```go
-	arr := [4]byte{0x00, 0x01, 0x02, 0x03}
-	arr_0 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 0*unsafe.Sizeof(arr[0])))
-	arr_1 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 1*unsafe.Sizeof(arr[0])))
-	arr_2 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 2*unsafe.Sizeof(arr[0])))
-	arr_3 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 3*unsafe.Sizeof(arr[0])))
-
-	fmt.Printf("arr_0 = %d\n", *arr_0)
-	fmt.Printf("arr_1 = %d\n", *arr_1)
-	fmt.Printf("arr_2 = %d\n", *arr_2)
-	fmt.Printf("arr_3 = %d\n", *arr_3)
+package main  
+  
+import (  
+    "fmt"  
+    "unsafe")  
+  
+func main() {  
+    arr := [4]byte{0x00, 0x01, 0x02, 0x03}  
+    arr_0 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 0*unsafe.Sizeof(arr[0])))  
+    arr_1 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 1*unsafe.Sizeof(arr[0])))  
+    arr_2 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 2*unsafe.Sizeof(arr[0])))  
+    arr_3 := (*byte)(unsafe.Pointer(uintptr(unsafe.Pointer(&arr)) + 3*unsafe.Sizeof(arr[0])))  
+  
+    fmt.Printf("arr[0] = %d\n", *arr_0)  
+    fmt.Printf("arr[1] = %d\n", *arr_1)  
+    fmt.Printf("arr[2] = %d\n", *arr_2)  
+    fmt.Printf("arr[3] = %d\n", *arr_3)  
+}
 ```
 
-	
+#### Ковыряем слайс при помощи unsafe
+```go
+package main  
+  
+import (  
+    "fmt"  
+    "unsafe")  
+  
+func main() {  
+    s := make([]int, 10, 20)  
+    s[4] = 4  
+    s[5] = 5  
+    fmt.Println(s)                         // [0 0 0 0 4 5 0 0 0 0]  
+    fmt.Printf("addr of s: %p\n", &s)     // 0xc0000a8018  
+    fmt.Printf("addr of s[0]: %p\n", &s[0])    // 0xc0000b2000  
+    fmt.Printf("addr of s[1]: %p\n", &s[1])    // 0xc0000b2008  
+    fmt.Printf("addr of s[2]: %p\n", &s[2])  // 0xc0000b2010  
+  
+    fmt.Println("\nget slice's info via unsafe:")  
+    fmt.Printf("size of s: %d bytes\n", unsafe.Sizeof(s)) // size of s: 24 bytes  
+    s_ptr := unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + unsafe.Alignof(s)*0)  
+    s_len := (*int)(unsafe.Pointer(uintptr(s_ptr) + unsafe.Alignof(s)*1))  
+    s_cap := (*int)(unsafe.Pointer(uintptr(s_ptr) + unsafe.Alignof(s)*2))  
+  
+    fmt.Printf("s_ptr: %v value: %x\n", s_ptr, *(*[]int)(s_ptr)) // s_ptr: 0xc0000a8018 value: [0 0 0 0 4 5 0 0 0 0]  
+    fmt.Printf("s_len: %v value: %v\n", s_len, *s_len) // s_len: 0xc0000a8020 value: 10 
+    fmt.Printf("s_cap: %v value: %v\n", s_cap, *s_cap) // s_cap: 0xc0000a8028 value: 20 
+    fmt.Printf("")  
+}
+```
 
 
+#### Применение Sizeof, Offsetof, Alignof на примере работы со структурами
 ```go
 package main
 
@@ -132,5 +198,3 @@ func main() {
 }
 ```
 
-
-#### 
