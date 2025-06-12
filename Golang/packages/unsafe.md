@@ -202,3 +202,75 @@ func main() {
 }
 ```
 
+#### преобразование слайса байт в объект структуры, и наоборот
+```go
+package main  
+  
+import (  
+    "bytes"  
+    "fmt"    "unsafe")  
+  
+type ModbusHeader struct {  
+    TransactionID uint16  
+    ProtocolID    uint16  
+    Length        uint16  
+    DeviceAddress uint8  
+    FunctionCode  uint8  
+    ByteCount     uint8  
+}  
+  
+func ModbusPDU(bytes []byte) (ModbusHeader, []uint16) {  
+    // header  
+    header := *(*ModbusHeader)(unsafe.Pointer(&bytes[0]))  
+  
+    //registers  
+    offset := unsafe.Offsetof(header.ByteCount) + unsafe.Sizeof(header.ByteCount)  
+    regAddr := unsafe.Pointer(uintptr(unsafe.Pointer(&bytes[0])) + offset)  
+    bytesAddr := (*uint16)(regAddr)  
+    registers := unsafe.Slice(bytesAddr, int(header.ByteCount)/2)  
+  
+    return header, registers  
+}  
+  
+func BytesFromModbus(pdu ModbusHeader, registers []uint16) []byte {  
+    if len(registers) < 1 {  
+       return nil  
+    }  
+    headerSize := unsafe.Offsetof(pdu.ByteCount) + unsafe.Sizeof(pdu.ByteCount)  
+    addrH := (*byte)(unsafe.Pointer(&pdu))  
+    bytesHeader := unsafe.Slice(addrH, headerSize)  
+  
+    addrR := (*byte)(unsafe.Pointer(&registers[0]))  
+    bytesRegisters := unsafe.Slice(addrR, pdu.ByteCount*uint8(unsafe.Sizeof(registers[0]))/2)  
+  
+    fmt.Printf("bytesHeader: %v \n", bytesHeader)  
+    fmt.Printf("bytesRegisters: %v \n", bytesRegisters)  
+  
+    return append(bytesHeader, bytesRegisters...)  
+}  
+  
+func main() {  
+    msg := []byte{  
+       0x00, 0x00, //Transaction ID  
+       0x01, 0x00, //Protocol ID  
+       0x09, 0x00, //Length  
+       0x00,                                //Device address  
+       0x03,                                //Function code  
+       0x06,                                //Bytes count  
+       0x0B, 0x02, 0x064, 0x00, 0x7F, 0x00, //Data registers  
+    }  
+    fmt.Println("msg:")  
+    fmt.Println(msg)  
+  
+    Header, Registers := ModbusPDU(msg)  
+    fmt.Printf("%+v \n %#b \n", Header, Registers)  
+    fmt.Printf("size of header = %d \n", unsafe.Sizeof(Header))  
+    fmt.Printf("offset of header.Bytecount = %d \n", unsafe.Offsetof(Header.ByteCount))  
+    fmt.Printf("registers to bytes: %b \n", *(*[]byte)(unsafe.Pointer(&Registers)))  
+  
+    msg2 := BytesFromModbus(Header, Registers)  
+    fmt.Println("msg2:")  
+    fmt.Println(msg2)  
+    fmt.Printf("msg is equal to  msg2:  %t", bytes.Equal(msg, msg2))  
+}
+```
