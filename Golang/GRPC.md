@@ -1,8 +1,17 @@
+
+### ИНСТРУМЕНТЫ  ДЛЯ РАБОТЫ С gRPC
+- **protoc** - компилятор, который генерирует код на основе ваших `.proto` файлов.
+- **Go gRPC плагины для protoc** - генерируют Go-код для gRPC.
+- **protoc-gen-go** - 
+- **protoc-gen-go-grpc** - 
+- **.proto** - прото-файл, 
+
+
 ### УСТАНОВКА КОМПОНЕНТОВ
 #### Protoc
 - [https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases)- скачать нужный релиз софтины
 - распаковать архив в любое удобное место на компе
--  В системной переменной `PATH` установить абсолютный путь к директории /bin протобfфа
+-  В системной переменной `PATH` установить абсолютный путь к директории /bin протобафа
 - проверить установку протобафа: 
 ```bash
  protoc --version
@@ -16,8 +25,29 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 Убедиться что путь, эквивалентный `$GOPATH/bin` находится в переменной `$PATH`.
 
 
-### ИНСТРУМЕНТЫ  ДЛЯ РАБОТЫ С gRPC
-- **protoc** - компилятор, который генерирует код на основе ваших `.proto` файлов.
-- **Go gRPC плагины для protoc** - генерируют Go-код для gRPC.
-- **protoc-gen-go** - 
-- **protoc-gen-go-grpc** - 
+### СОЗДАНИЕ .proto - ФАЙЛА
+
+
+```proto
+syntax = "proto3";  
+  
+option go_package= "simple_grpc_app/calculatorpb";  
+  
+package calculator;  
+  
+message SumRequest {  
+    int32 a = 1;  
+    int32 b = 2;  
+}  
+  
+message SumResponce {  
+    int32 result = 1;  
+}  
+  
+// Сервис  
+service CalculatorService{  
+    rpc Sum(SumRequest) returns (SumResponce);  
+}
+```
+
+### КОМПИЛЯЦИЯ ФАЙЛОВ
