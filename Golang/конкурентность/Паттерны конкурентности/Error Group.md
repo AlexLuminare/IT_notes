@@ -85,7 +85,10 @@ package main
   
 import (  
     "errors"  
-    "fmt"    "math/rand"    "sync"    "time")  
+    "fmt"    
+    "math/rand"    
+    "sync"    
+    "time")  
   
 type ErrGroup struct {  
     err      error  
