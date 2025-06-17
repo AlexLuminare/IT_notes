@@ -35,7 +35,11 @@ package main
   
 import (  
     "context"  
-    "fmt"    "golang.org/x/sync/errgroup"    "log"    "net/http"    "time")  
+    "fmt"   
+	"golang.org/x/sync/errgroup"    
+	"log"    
+	"net/http"    
+	"time")  
   
 var urls = []string{"https://example.com", "https://example.org", "https://example.net"}  
   
