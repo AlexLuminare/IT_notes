@@ -51,3 +51,5 @@ service CalculatorService{
 ```
 
 ### КОМПИЛЯЦИЯ ФАЙЛОВ
+protoc --proto_path=proto --go_out=./ --go_opt=paths=source_relative 
+--go-grpc_out=./ --go-grpc_opt=paths=source_relative proto/calculator.proto
