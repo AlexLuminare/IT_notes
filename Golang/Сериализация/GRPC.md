@@ -1,10 +1,11 @@
 
 ### ИНСТРУМЕНТЫ  ДЛЯ РАБОТЫ С gRPC
-- **protoc** - компилятор, который генерирует код на основе ваших `.proto` файлов.
+- **protoc** - компилятор, который генерирует код на нужном нам ЯП на основе ваших `.proto` файлов и параметров компиляции.
 - **Go gRPC плагины для protoc** - генерируют Go-код для gRPC.
-- **protoc-gen-go** - 
-- **protoc-gen-go-grpc** - 
+	- **protoc-gen-go** - 
+	- **protoc-gen-go-grpc** - 
 - **.proto** - прото-файл, 
+
 
 
 ### УСТАНОВКА КОМПОНЕНТОВ
@@ -50,6 +51,21 @@ service CalculatorService{
 }
 ```
 
-### КОМПИЛЯЦИЯ ФАЙЛОВ
-protoc --proto_path=proto --go_out=./ --go_opt=paths=source_relative 
---go-grpc_out=./ --go-grpc_opt=paths=source_relative proto/calculator.proto
+### protoc - КОМПИЛЯЦИЯ ФАЙЛОВ
+
+Компиляция происходит при помощи команды вида: 
+```bash
+protoc --proto_path=proto --go_opt=paths=source_relative --go_out=./proto_out/ --go-grpc_out=./proto_out/ --go-grpc_opt=paths=source_relative calculator.proto
+```
+Где:
+- `--proto_path=proto` или `-I proto` - флаг с указанием директории (`proto`) с исходными .proto-файлом 
+- `--go_out=./proto_out/` - указывает `protoc-gen-go` генерировать Go-код в  директорию `proto_out`
+- `--go_opt=paths=source_relative` - указывает, что пути к генерируемым файлам должны быть относительными к папке, указанной флагом `--go_out`
+- `--go-grpc_out=./proto_out/` - указывает `protoc-gen-go-grpc` генерировать Go-код в  директорию `proto_out`
+- `--go-grpc_opt=paths=source_relative` - указывает, что пути к генерируемым файлам должны быть относительными к папке, указанной флагом `--go-grpc_out`
+- `calculator.proto` -исходный .proto-файл, который нужно компилировать
+
+В итоге получаем 2 файла: 
+- **calculator.pb.go** -  Содержит сгенерированные структуры Go для ваших Protocol Buffer сообщений.
+- **calculator_grpc.pb.go** - Содержит сгенерированные интерфейсы для нашего gRPC-сервиса, которые нам нужно будет реализовать (для сервера) и использовать (для клиента).
+
