@@ -28,7 +28,6 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 ### СОЗДАНИЕ .proto - ФАЙЛА
 
-
 ```proto
 syntax = "proto3";  
   
