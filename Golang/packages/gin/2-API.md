@@ -1,5 +1,5 @@
 
-
+	
 
 ### gin.Driver
 
@@ -123,6 +123,13 @@ router.SetTrustedProxies(nil)
 
 Пусть `c` - переменна  с типом  `gin.Contex`
 
+
+- `c.GetHeader(key string) string` - получить значение заголовка  запроса ключу `key`
+
+- `c.Request.Header() map[string][]string` - получить из запроса ВСЕ заголовки в виде мапы
+
+- `c.Header(key string, value string)` - Этот метод устанавливает или перезаписывает заголовок ответа с указанным ключом и значением.
+	
 - `c.Param(key string) string`  Извлекает значение **параметра пути (URL parameter)** из запроса. Параметры пути определяются в маршруте с двоеточием, например, `/users/:id`.  Используется, когда часть URL является динамической и представляет собой идентификатор или имя ресурса.
 	```go
 	router.GET("/users/:id", func(c *gin.Context) {
@@ -134,11 +141,12 @@ router.SetTrustedProxies(nil)
 - `c.Query(key string) string` - Извлекает значение **параметра запроса (query parameter)** из URL (часть после `?`). Используются, когда нужно получить опциональные параметры из URL, часто для фильтрации, сортировки или пагинации.
 
 - `c.DefaultQuery(key, defaultValue string)` - то же самое, что и `Query`, но возвращает `defaultValue`, если параметр не найден в запросе. 
+
 ```go
 router.GET("/search", func(c *gin.Context) {
-    keyword := c.Query("q") // Запрос /search?q=golang, keyword будет "golang"
-    limit := c.DefaultQuery("limit", "10") // Запрос /search, limit будет "10"
-    c.String(http.StatusOK, "Searching for '%s' with limit %s", keyword, limit)
+keyword := c.Query("q") // Запрос /search?q=golang, keyword будет "golang"
+limit := c.DefaultQuery("limit", "10") // Запрос /search, limit будет "10"
+c.String(http.StatusOK, "Searching for '%s' with limit %s", keyword, limit)
 })
 ```
 
@@ -169,7 +177,15 @@ router.GET("/hello", func(c *gin.Context) {
 })
 ```
 
-- `c.JSON(code int, obj interface{})` - Отправляет **JSON-ответ** клиенту. Gin автоматически преобразует предоставленный объект (`obj`) (который может быть Go-структурой, `map[string]interface{}`, `gin.H` и т.д.) в JSON и устанавливает правильный заголовок `Content-Type: application/json`.  Это основной метод для построения RESTful API, где данные обмениваются в формате JSON.
+- `c.JSON(code int, obj interface{})` - Отправляет **JSON-ответ** клиенту. Gin автоматически преобразует предоставленный объект (`obj`) в JSON и устанавливает правильный заголовок `Content-Type: application/json`.  Это основной метод для построения RESTful API, где данные обмениваются в формате JSON.
+ Параметр `obj` в этом случае может быть:
+	 - `gin.H` - синтаксический  сахар  для `map[string]interface{}`
+	 - структуры 
+	 - срезы структур. В этом случае будет отправлен массив json-данных в качестве ответа.
+	 - `map[string]interface{}`
+	 - `map[string]string`
+	 - `[]string`
+	 - `int`, `float64`, `bool`, `string`
 ```go
 router.GET("/api/data", func(c *gin.Context) {
     c.JSON(http.StatusOK, gin.H{
@@ -178,6 +194,8 @@ router.GET("/api/data", func(c *gin.Context) {
     })
 })
 ```
+
+- `c.IndentedJSON(code int, obj interface{})` - аналогично `c.JSON` но в итоге json-ответ будет содержать отступы в содержимом.
 
 - `c.HTML(code int, name string, obj interface{})` -  Рендерит и отправляет **HTML-шаблон** клиенту с указанным HTTP-статусом. `name` - имя шаблона, а `obj` - данные, которые будут переданы в шаблон. Применяется при создании традиционных веб-приложений, где сервер рендерит HTML-страницы. Перед использованием необходимо загрузить шаблоны с помощью `router.LoadHTMLGlob()` или `router.LoadHTMLFiles()`.
 ```go
