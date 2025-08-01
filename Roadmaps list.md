@@ -299,7 +299,7 @@
 - DML
 - DDL
 
-##### OLAP/OLTP
+##### [[OLAP vs OLTP|OLAP/OLTP]]
 
 #### Балансировка нагрузки
 - Round Robin
