@@ -16,7 +16,7 @@
 - ~~Зачеркнутый текст~~: `~~зачеркнутый текст~~`
 - ==Подсвеченный текст==: `==подсвеченный текст==`
 
-**Списки:**
+#### Списки:
 - **Нумерованный список:**
     1. Первый пункт
     2. Второй пункт
@@ -29,20 +29,22 @@
 2. Second list item 
 	- Unordered nested list item
 
-- **Ссылки:**
-    - **Внутренние ссылки:** `[[Название заметки]]`   [[ACID]]
-    - **Внешние ссылки:** `[Текст ссылки](https://ссылка)`[google.com](https://google.com)
-    - **Ссылки на блоки** `[[Название заметки#^идентификатор блока]]`  [[MD-ликбез#^123]]
-- **Изображения:**
-    - `![Описание изображения](путь_к_изображению)`
+#### Ссылки:
+- **Внутренние ссылки:**  `[[Название заметки]]`   [[ACID]]
+- **Внешние ссылки:**  `[Текст ссылки](https://ссылка)`[google.com](https://google.com)
+- **Ссылки на блоки**  `[[Название заметки#^идентификатор блока|alias]]`  
+[[MD-ликбез#^123|README]] - где `MD-ликбез` - название файла, `#^123` - якорь на конкретное место в файле, `|README` - название ссылки, которое будет видеть пользователь.
+
+#### Изображения:**
+- `![Описание изображения](путь_к_изображению)`
      Примеры:
-     -  `![локальная картинка:](./refs/golang.png)`
+ -  `![локальная картинка:](./refs/golang.png)`
 	     ![локальная картинка:](golang.png)
-     - `![интернет ссылка:](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fgolang%2Fgo&psig=AOvVaw3JxzeH5l3SX6gCK44B9XO1&ust=1736116171874000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLjItPGO3YoDFQAAAAAdAAAAABAE)`
-	      ![интернет картинка:](https://camo.githubusercontent.com/ff89c51c9e5a3de2b752b37bf6ab32401b9649d7acb1633ece9a40c85ae28b95/68747470733a2f2f676f6c616e672e6f72672f646f632f676f706865722f6669766579656172732e6a7067)
+ - `![интернет ссылка:](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fgolang%2Fgo&psig=AOvVaw3JxzeH5l3SX6gCK44B9XO1&ust=1736116171874000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLjItPGO3YoDFQAAAAAdAAAAABAE)`
+	  ![интернет картинка:](https://camo.githubusercontent.com/ff89c51c9e5a3de2b752b37bf6ab32401b9649d7acb1633ece9a40c85ae28b95/68747470733a2f2f676f6c616e672e6f72672f646f632f676f706865722f6669766579656172732e6a7067)
 
 
-- **Подсветка кода**
+#### Подсветка кода
 ```javascript
 function greet(name) {
   console.log("Hello, " + name + "!");
@@ -56,6 +58,8 @@ type SomeType struct {
 }
 ```
 
+
+#### Цитаты
 - **Цитаты:**  `> сождержимое цитаты`
 > Dorothy followed her through many of the beautiful rooms in her castle.
 
@@ -69,7 +73,7 @@ type SomeType struct {
 >
 >> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
 
-- **Список задач:**
+####  Список задач:
 	- [ ] сделать то
 	- [ ] сделать это
 	- [ ] ничего не делать
@@ -77,14 +81,17 @@ type SomeType struct {
 - **Сноски:**
 This is a simple footnote[^1].
 
-**Комментарии:** - комментарии видны только  в режиме редактирования.
+#### Комментарии: 
+комментарии видны только  в режиме редактирования.
 
 This is an %%inline%% comment. 
 %% 
 This is a block comment. 
 Block comments can span multiple lines.
 %%
-- **экранирование символов:**  ^123
+
+
+#### экранирование символов:  ^123
 - Asterisk: `\*`
 - Underscore: `\_`
 - Hashtag: `\#`
@@ -97,7 +104,7 @@ Block comments can span multiple lines.
 [^note]: Named footnotes still appear as numbers, but can make it easier to identify and link references.
 
 
-**Закрывающиеся блоки**
+#### Закрывающиеся блоки
 ```xml
 <details>
 <summary>TLDR</summary>
