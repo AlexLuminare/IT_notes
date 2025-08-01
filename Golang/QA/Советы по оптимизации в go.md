@@ -211,3 +211,6 @@ func getInt() *int {
 
 
 #### 18. Оцениваем стоимость `cgo`-вызовов
+
+
+https://dev.to/leapcell/20-go-performance-tricks-i-learned-the-hard-way-2h8h
